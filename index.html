@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BESS API Simulator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="main-container">
+    <header class="api-header">
+        <div class="logo-icon">⚡</div>
+        <div class="header-text">
+            <h1>Система накопичення енергії BESS</h1>
+            <p>Інтерактивний симулятор API</p>
+        </div>
+    </header>
+
+    <section class="api-section simulator-block">
+        <div class="testing-area">
+            <h3>🎮 Тестування API</h3>
+
+            <div class="input-group" style="margin-bottom: 20px; display: flex; align-items: center; gap: 10px;">
+                <label for="system-id" style="color: var(--text-muted);">Введіть ID системи:</label>
+                <input type="number" id="system-id" value="1" min="1" style="
+                    background: #101216; 
+                    border: 1px solid var(--border); 
+                    color: var(--primary); 
+                    padding: 8px; 
+                    border-radius: 4px; 
+                    width: 60px;
+                    font-weight: bold;
+                ">
+            </div>
+
+            <div class="api-buttons">
+                <button class="btn-get" onclick="apiCall('GET', '/api/energy-storage')">
+                    <span class="method">GET</span> /api/energy-storage
+                    <span class="desc">Отримати всі системи</span>
+                </button>
+
+                <button class="btn-get" onclick="getById()">
+                    <span class="method">GET</span> /api/energy-storage/:id
+                    <span class="desc">Отримати за ID</span>
+                </button>
+
+                <button class="btn-get" onclick="getSocById()">
+                    <span class="method">GET</span> /api/energy-storage/:id/soc
+                    <span class="desc">Отримати рівень заряду</span>
+                </button>
+
+                <button class="btn-post" onclick="sendCommandById('charging')">
+                    <span class="method">POST</span> /api/energy-storage/:id/command
+                    <span class="desc">Відправити команду</span>
+                </button>
+
+                <button class="btn-post" onclick="updateById()">
+                    <span class="method">PUT</span> /api/energy-storage/:id
+                    <span class="desc">Оновити параметри</span>
+                </button>
+
+                <button class="btn-delete" onclick="deleteById()">
+                    <span class="method">DELETE</span> /api/energy-storage/:id
+                    <span class="desc">Видалити систему</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="api-section data-block">
+        <div class="section-header">
+            <span class="icon">📊</span> Поточні дані (DB state)
+        </div>
+        <pre id="current-data" class="json-display">[...]</pre>
+        <div class="data-footer">Всього об'єктів: <span id="total-count">0</span></div>
+    </section>
+
+    <section class="api-section response-block">
+        <div class="section-header">
+            <span class="icon">🟢</span> Відповідь сервера
+        </div>
+        <div class="status-bar">
+            Status: <span id="response-status" class="status-neutral">---</span>
+        </div>
+        <pre id="response-body" class="json-display">{ ... }</pre>
+    </section>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
